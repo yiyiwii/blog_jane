@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Ocean Njord</title>
+    <link>http://yiyiwii.github.io/post/</link>
+    <description>Recent content in Posts on Ocean Njord</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>Donghua&#39;s Notebook</language>
+    <lastBuildDate>Sun, 10 Jun 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="http://yiyiwii.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Week 1 - Big Data Essentials: HDFS, MapReduce and Spark RDD</title>
+      <link>http://yiyiwii.github.io/post/big-data-essential-week1/</link>
+      <pubDate>Sun, 10 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://yiyiwii.github.io/post/big-data-essential-week1/</guid>
+      <description> Notes Big Data Essentials from Yandex
+ ## Notes Big Data Essentials from Yandex  </description>
+    </item>
+    
+    <item>
+      <title>Machine Learning from Scratch: Logistic Regression</title>
+      <link>http://yiyiwii.github.io/post/ml-scratch-logistic/</link>
+      <pubDate>Sat, 20 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>http://yiyiwii.github.io/post/ml-scratch-logistic/</guid>
+      <description>Introduction First, do not be fooled by its name. Logistic regression is not a regression algorithm but a classification one. It is used to assign data into discrete set of classes, for example, two classes (binary logistic regression) or multiple classes.
+Real world application includes: given a dataset describing patients&amp;rsquo; tumor sizes, predict if the tumor is benign, yes (label=1) or no (label=0). This is a binary classification problem. First, we need to pass the data to a prediction function.</description>
+    </item>
+    
+  </channel>
+</rss>

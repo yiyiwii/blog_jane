@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Machine Learning from Scratch: Logistic Regression - Ocean Njord</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Donghua (Lyla) CAI" />
+  <meta name="description" content="Introduction First, do not be fooled by its name. Logistic regression is not a regression algorithm but a classification one. It is used to assign data into discrete set of classes, for example, two classes (binary logistic regression) or multiple classes.
+Real world application includes: given a dataset describing patients&amp;rsquo; tumor sizes, predict if the tumor is benign, yes (label=1) or no (label=0). This is a binary classification problem. First, we need to pass the data to a prediction function." />
+
+  <meta name="keywords" content="Spark, Big Data, Hadoop" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.42.1" />
+
+
+<link rel="canonical" href="http://yiyiwii.github.io/post/ml-scratch-logistic/" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+
+
+
+
+<link href="/dist/even.min.css?v=3.2.0" rel="stylesheet">
+<link href="/lib/fancybox/jquery.fancybox-3.1.20.min.css" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="Machine Learning from Scratch: Logistic Regression" />
+<meta property="og:description" content="Introduction First, do not be fooled by its name. Logistic regression is not a regression algorithm but a classification one. It is used to assign data into discrete set of classes, for example, two classes (binary logistic regression) or multiple classes.
+Real world application includes: given a dataset describing patients&rsquo; tumor sizes, predict if the tumor is benign, yes (label=1) or no (label=0). This is a binary classification problem. First, we need to pass the data to a prediction function." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://yiyiwii.github.io/post/ml-scratch-logistic/" />
+
+
+
+<meta property="article:published_time" content="2018-01-20T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-01-20T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Machine Learning from Scratch: Logistic Regression">
+<meta itemprop="description" content="Introduction First, do not be fooled by its name. Logistic regression is not a regression algorithm but a classification one. It is used to assign data into discrete set of classes, for example, two classes (binary logistic regression) or multiple classes.
+Real world application includes: given a dataset describing patients&rsquo; tumor sizes, predict if the tumor is benign, yes (label=1) or no (label=0). This is a binary classification problem. First, we need to pass the data to a prediction function.">
+
+
+<meta itemprop="datePublished" content="2018-01-20T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2018-01-20T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="384">
+
+
+
+<meta itemprop="keywords" content="Machine Learning,Logistic Regression," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Machine Learning from Scratch: Logistic Regression"/>
+<meta name="twitter:description" content="Introduction First, do not be fooled by its name. Logistic regression is not a regression algorithm but a classification one. It is used to assign data into discrete set of classes, for example, two classes (binary logistic regression) or multiple classes.
+Real world application includes: given a dataset describing patients&rsquo; tumor sizes, predict if the tumor is benign, yes (label=1) or no (label=0). This is a binary classification problem. First, we need to pass the data to a prediction function."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Notebook Njord</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Notebook Njord</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Machine Learning from Scratch: Logistic Regression</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2018-01-20 </span>
+        <div class="post-category">
+            
+              <a href="/categories/machine-learning-from-scratch/"> Machine Learning from Scratch </a>
+            
+          </div>
+        
+        
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#cost-function">Cost Function</a></li>
+<li><a href="#gradient-descent">Gradient Descent</a></li>
+<li><a href="#stochastic-gradient-descent">Stochastic Gradient Descent</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    
+
+    
+    <div class="post-content">
+      
+
+<h2 id="introduction">Introduction</h2>
+
+<p>First, do not be fooled by its name. Logistic regression is not a regression algorithm but a classification one. It is used to assign data into <strong>discrete</strong> set of classes, for example, two classes (binary logistic regression) or multiple classes.</p>
+
+<p>Real world application includes: given a dataset describing patients&rsquo; tumor sizes, predict if the tumor is benign, yes (label=1) or no (label=0). This is a binary classification problem. First, we need to pass the data to a prediction function. It should give us a probability of a data sample being assigned yes. The probability is ranging from $0$ and $1$. Then we can classify the data by, for example, set the threshold 0.5:</p>
+
+<p>$$p\geq 0.5, class = 1$$
+$$p&lt; 0.5, class = 0$$</p>
+
+<p>This prediction function is called <strong>logic function</strong> or <strong>sigmoid function</strong>. <em>Sigmoid</em> means S-shaped. The sigmoid function for $z\in(-\infty,\infty)$ looks like below.
+$$sigmoid(z) = \sigma(z) =\frac{1}{1+\exp(-z)}$$</p>
+
+
+<figure>
+    
+        <img src="/img/sigmoid.png" />
+    
+    
+    <figcaption>
+        <h4>Figure 1. Sigmoid function (From Machine learning, Stanford, Coursera)</h4>
+        
+    </figcaption>
+    
+</figure>
+
+
+<pre><code class="language-python"># Easy to implement in python
+
+def sigmoid(z)
+	return 1.0 / (1 + numpy.exp(-z))
+</code></pre>
+
+<p>With sigmoid function, when $z$ is very large, $\exp(-z)$ is small so that $sigmoid(z)$ is close to $1$; On the other hand, when $z$ is very small, $\exp(-z)$ is large so that $sigmoid(z)$ is close to $0$. Hence, we map all possible $z$ value to $[0,1]$.</p>
+
+<h2 id="cost-function">Cost Function</h2>
+
+<p>It is also called <strong>Cross Entropy</strong>.</p>
+
+<p>The cost function in linear regression (Mean Squared Error, $MSE=\frac{1}{2}(\hat{y}-y)^2)$ can not be used in logistic regression. Because prediction function in logistic regression is not linear due to sigmoid transform. If we use MSE, the cost function is non-convex and has many local optima. Instead, we use log-like function below:</p>
+
+<p>$$J(\theta) = -\frac{1}{m} \sum_{i=1}^{m}[y^{(i)}\log(h)+(1-y^{(i)})\log{(1-h)}]$$</p>
+
+<p>where $h(x) = \sigma(X\theta)$, $z=X\theta$, $\theta$ is a vector of model parameters.</p>
+
+<pre><code class="language-python">def cost(h, y):
+	return np.mean((-y * np.log(h) - (1 - y) * np.log(1 - h)))
+
+</code></pre>
+
+<h2 id="gradient-descent">Gradient Descent</h2>
+
+<p>To find the global minimum of the cost function, we need to compute the derivative of $J(\theta)$. Use the derivative of sigmoid function $\sigma(x)&rsquo; =\sigma(x)(1-\sigma(x))$ and apply chain rule, we will have the result below:</p>
+
+<div>
+$$
+\begin{align}\frac{\partial J}{\partial\mathbf{\theta}} &=  -\frac{1}{m}\sum_{i=1}^{m}\big[\frac{\partial}{\partial\mathbf{\theta}}y\log\sigma(\mathbf{\theta}^{T}x)+\frac{\partial}{\partial\mathbf{\theta}}(1-y)\log[1-\sigma(\mathbf{\theta}^{T}x)]\big] \\
+  &=    -\frac{1}{m}\sum_{i=1}^{m}\big[\frac{y}{\sigma(\mathbf{\theta}^{T}x)}-\frac{1-y}{1-\sigma(\mathbf{\theta}^{T}x)}\big]\frac{\partial}{\partial\mathbf{\theta}}\sigma(\mathbf{\theta}^{T}x) \\
+  &=    -\frac{1}{m}\sum_{i=1}^{m}\big[\frac{y}{\sigma(\mathbf{\theta}^{T}x)}-\frac{1-y}{1-\sigma(\mathbf{\theta}^{T}x)}\big]\sigma(\mathbf{\theta}^{T}x)[1-\sigma(\mathbf{\theta}^{T}x)]\frac{\partial}{\partial\mathbf{\theta}}(\mathbf{\theta}^{T}x) \\
+  &=    -\frac{1}{m}\sum_{i=1}^{m}\big[y-\sigma(\mathbf{\theta}^{T}x)\big]\frac{\partial}{\partial\mathbf{\theta}}(\mathbf{\theta}^{T}x)
+\end{align}$$
+</div>
+
+<p>Vectorized version:
+$$\nabla J(\theta)=-\frac{1}{m}X^T(y-\sigma(X\theta))$$</p>
+
+<pre><code class="language-python">h = sigmoid(np.dot(X, theta))
+gradient = -1.0 / y.size * np.transpose(X) * (y - h)
+</code></pre>
+
+<h2 id="stochastic-gradient-descent">Stochastic Gradient Descent</h2>
+
+<p>(to be continued.)</p>
+
+    </div>
+
+    
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Donghua (Lyla) CAI</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2018-01-20</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+<div class="post-reward">
+  <input type="checkbox" name="reward" id="reward" hidden />
+  <label class="reward-button" for="reward">Reward</label>
+  <div class="qr-code">
+    
+    
+      <label class="qr-code-image" for="reward">
+        <img class="image" src="/img/wechat_qrcode.png">
+        <span>wechat</span>
+      </label>
+    
+  </div>
+</div>
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/machine-learning/">Machine Learning</a>
+          
+          <a href="/tags/logistic-regression/">Logistic Regression</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+          <a class="prev" href="/post/big-data-essential-week1/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Week 1 - Big Data Essentials: HDFS, MapReduce and Spark RDD</span>
+            <span class="prev-text nav-mobile">Prev</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="mailto:dongh.tsai@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/yiyiwii" class="iconfont icon-github" title="github"></a>
+  <a href="http://yiyiwii.github.io/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Donghua (Lyla) Cai</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script src="/lib/highlight/highlight.pack.js?v=20171001"></script><script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+  <script type="text/javascript" src="/lib/fancybox/jquery.fancybox-3.1.20.min.js"></script>
+
+
+<script type="text/javascript" src="/dist/even.min.js?v=3.2.0"></script>
+  <script type="text/javascript">
+    window.MathJax = {
+      tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+      showProcessingMessages: false,
+      messageStyle: 'none'
+    };
+  </script>
+  <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
