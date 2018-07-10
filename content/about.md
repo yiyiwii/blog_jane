@@ -10,6 +10,6 @@ comment: false
 mathjax: false
 ---
 
-Here are my notebooks about what I have learned and some random thoughts about my life.
+Life is short and long, good and bad, sunny and rainy. It all depends on my attitudes. I hope, after a breeze, I can leave some traces in life. 
 
-Life is short and long. Life is good and bad. Life is sunny and rainy. It all depends on my attitudes. I hope, after a breeze, I can leave some traces in life. 
+Here are my notebooks about what I have learned and some random thoughts about my life.
