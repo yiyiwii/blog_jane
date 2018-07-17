@@ -10,8 +10,8 @@ comment: false
 mathjax: false
 ---
 
-Life is short and long, good and bad, sunny and rainy. It all depends on my attitudes. I hope, after a breeze, I can leave some traces in life. 
+Life is short and long, good and bad, sunny and rainy. I hope, after a breeze, I can leave some traces in life. 
 
-Here are my notebooks about what I have learned and some random thoughts about my life. Some notes are probably straight forward. It simply helps me improve my communication and expression skills. Moreover, writing serves as a way of organizing my thoughts, which gives me a clean and calm mind. 
+Here are my notebooks about what I have learned and some random thoughts about my life. Some notes are probably straight forward. It simply helps me improve my communication and expression skills. Moreover, writing serves as a way of organizing my thoughts, which gives me a clean and calm mind. Hope it can help you too. 
 
-Other than writing and reading, I exercise regularly.
+Besides writing and reading, I exercise regularly.

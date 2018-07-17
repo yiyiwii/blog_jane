@@ -12,7 +12,7 @@ categories: [
 math: true
 ---
 
-## Introduction
+## 1. Introduction
 
 First, do not be fooled by its name. Logistic regression is not a regression algorithm but a classification one. It is used to assign data into **discrete** set of classes, for example, two classes (binary logistic regression) or multiple classes. 
 
@@ -36,7 +36,7 @@ def sigmoid(z)
 
 With sigmoid function, when $z$ is very large, $\exp(-z)$ is small so that $sigmoid(z)$ is close to $1$; On the other hand, when $z$ is very small, $\exp(-z)$ is large so that $sigmoid(z)$ is close to $0$. Hence, we map all possible $z$ value to $[0,1]$.
 
-## Cost Function 
+## 2. Cost Function 
 It is also called **Cross Entropy**. 
 
 The cost function in linear regression (Mean Squared Error, $MSE=\frac{1}{2}(\hat{y}-y)^2)$ can not be used in logistic regression. Because prediction function in logistic regression is not linear due to sigmoid transform. If we use MSE, the cost function is non-convex and has many local optima. Instead, we use log-like function below:
@@ -51,7 +51,7 @@ def cost(h, y):
 
 ```
 
-## Gradient Descent
+## 3. Gradient Descent
 
 To find the global minimum of the cost function, we need to compute the derivative of $J(\theta)$. Use the derivative of sigmoid function $\sigma(x)' =\sigma(x)(1-\sigma(x))$ and apply chain rule, we will have the result below:
 
@@ -72,8 +72,14 @@ h = sigmoid(np.dot(X, theta))
 gradient = -1.0 / y.size * np.transpose(X) * (y - h)
 ```
 
-## Stochastic Gradient Descent
+## 4. Stochastic Gradient Descent
 
+## 5. Regularization
+
+Regularization is implemented to deal with the problem of overfitting. Overfitting is caused by a hypothesis function which fits the trainging data well but fails to represent new data. The other way to reduce overfitting is to simply reduce the number of features. But with regularization, we keep all the features, but reduce the parameters of model ($\theta$).
+
+## 0. Gotchas: 
 (to be continued.)
+
 
 
